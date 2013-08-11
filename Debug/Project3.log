@@ -1,13 +1,23 @@
-﻿生成启动时间为 7/22/2013 10:49:08 PM。
-     1>项目“c:\Users\zhu\documents\visual studio 2012\Projects\Project3\Project3\Project3.vcxproj”在节点 2 上(Build 个目标)。
+﻿生成启动时间为 8/11/2013 5:56:49 PM。
+     1>项目“C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Project3\Project3.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt hello.cpp
-         hello.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BoardEvaluator.cpp GameBoard.cpp main.cpp
+         main.cpp
+         BoardEvaluator.cpp
+         正在生成代码...
+         正在编译...
+         GameBoard.cpp
+     1>c:\users\zhu\documents\visual studio 2012\projects\project3\project3\gameboard.cpp(23): warning C4018: “<”: 有符号/无符号不匹配
+     1>c:\users\zhu\documents\visual studio 2012\projects\project3\project3\gameboard.cpp(27): warning C4018: “<”: 有符号/无符号不匹配
+         正在生成代码...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"c:\users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"c:\users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"c:\users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.lib" /MACHINE:X86 Debug\hello.obj
-         Project3.vcxproj -> c:\users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.exe
-     1>已完成生成项目“c:\Users\zhu\documents\visual studio 2012\Projects\Project3\Project3\Project3.vcxproj”(Build 个目标)的操作。
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.lib" /MACHINE:X86 Debug\BoardEvaluator.obj
+         Debug\GameBoard.obj
+         Debug\hello.obj
+         Debug\main.obj
+         Project3.vcxproj -> C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Debug\Project3.exe
+     1>已完成生成项目“C:\Users\zhu\documents\visual studio 2012\Projects\Project3\Project3\Project3.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.59
+已用时间 00:00:01.81

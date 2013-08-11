@@ -62,10 +62,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoardEvaluator.cpp" />
+    <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="hello.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoardEvaluator.h" />
+    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="TransferFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
