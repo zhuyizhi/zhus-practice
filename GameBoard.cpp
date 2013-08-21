@@ -1,17 +1,20 @@
 //#include "GameBoard.h"
 #include "iostream"
-#include "fstream"
 #include "string"
 #include "sstream"
 #include "vector"
 #include "BoardEvaluator.h"
-using namespace std;
 
+GameBoard::GameBoard(const GameBoard& anotherBoard){
+	for(int i = 0; i < HEIGHT; i++)
+		for(int j = 0; j < WIDTH; j++)
+			board[i][j] = anotherBoard.board[i][j];
+}
 
-int GameBoard::read_file(string file_name){
-	ifstream infile;
+int GameBoard::read_file(std::string file_name){
+	std::ifstream infile;
 	infile.open(file_name.c_str());
-	string line, word;
+	std::string line, word;
 	if(infile){
 		int row_num = 0;
 		while(getline(infile, line)){
@@ -19,7 +22,7 @@ int GameBoard::read_file(string file_name){
 				return E_FAIL;
 
 			int start = 0, place = 0;
-			vector<string> words;
+			std::vector<std::string> words;
 			while(start < line.length() && (place = line.find_first_of(',', start)) > 0){
 				words.push_back(line.substr(start, place - start));
 				start = place + 1;
@@ -30,7 +33,7 @@ int GameBoard::read_file(string file_name){
 				return E_FAIL;
 			int val;
 			for(int i = 0; i < WIDTH; i++){
-				stringstream ss(words[i]);
+				std::stringstream ss(words[i]);
 				ss >> val;
 				board[row_num][i] = (perl_type)val;
 			}
@@ -42,6 +45,8 @@ int GameBoard::read_file(string file_name){
 }
 
 void GameBoard::printBoard(){
+	using namespace std;
+	cout<<"This is what the game board looks like:"<<endl;
 	for(int i = 0; i < HEIGHT; i++){
 		for(int j = 0; j < WIDTH; j++){
 			cout<<board[i][j]<<" ";

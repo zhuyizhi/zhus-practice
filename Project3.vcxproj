@@ -66,6 +66,7 @@
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="hello.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RandomPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -73,6 +74,8 @@
   <ItemGroup>
     <ClInclude Include="BoardEvaluator.h" />
     <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="Manipulator.h" />
+    <ClInclude Include="RandomPlayer.h" />
     <ClInclude Include="TransferFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,33 +1,23 @@
-#include "string"
-using namespace std;
-const int WIDTH = 6;
-const int HEIGHT = 5;
-const int TYPE_NUM = 7;
-enum perl_type{
-	NOT_INITIALIZED,
-	RED,
-	BLUE,
-	GREEN,
-	YELLOW,
-	BLACK,
-	HEART
-};
+#ifndef GAME_BOARD_H_
+#define GAME_BOARD_H_
 
-enum ret_status{
-	S_OK,
-	E_FAIL
-};
+#include "string"
+#include "fstream"
+
+#include "Enums.h"
 
 class GameBoard{
 public:
+	
+	explicit GameBoard(const GameBoard&);
+	GameBoard& operator=(const GameBoard&);
 	inline int setCell(int height, int width, perl_type type){
 		if(height < 0 || height > HEIGHT || width < 0 || width > WIDTH)
 			return E_FAIL;
 		board[height][width] = type;
 		return S_OK;
 	}
-
-	inline int getCell(int height, int width, perl_type& type ){
+	inline int getCell(int height, int width, perl_type& type ) const {
 		if(height < 0 || height > HEIGHT || width < 0 || width > WIDTH)
 			return E_FAIL;
 		type = board[height][width];
@@ -40,18 +30,19 @@ public:
 				board[i][j] = NOT_INITIALIZED;
 	}
 
-	int read_file(string file_name);
+	int read_file(std::string file_name);
+
+	inline int swap(int w1, int h1, int w2, int h2){
+		perl_type t1 = board[h1][w1];
+		board[h1][w1] = board[h2][w2];
+		board[h2][w2] = t1;
+
+		return S_OK;
+	}
 
 	void printBoard();
 
 private:
 	perl_type board[HEIGHT][WIDTH];
 };
-
-class Point2D{
-public:
-	int x;
-	int y;
-	Point2D(){x = -1; y = -1;}
-	Point2D(int first, int second){x = first; y = second;}
-};
+#endif//GAME_BOARD_H_

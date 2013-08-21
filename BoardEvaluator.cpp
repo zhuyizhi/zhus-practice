@@ -2,30 +2,30 @@
 
 using namespace std;
 
-BoardEvaluator::BoardEvaluator(GameBoard ipBoard){
-	mpBoard = ipBoard;
+BoardEvaluator::BoardEvaluator(){
 	memset(comboNum, 0, sizeof(int) * TYPE_NUM);
-
 }
 
-int BoardEvaluator::evaluate(){
+int BoardEvaluator::evaluate(GameBoard* ipBoard){
 	int iteRound = -1;
 	bool haveCombo;
+	GameBoard lBoard(*ipBoard);
+	memset(comboNum, 0, sizeof(int) * TYPE_NUM);
+	combos.clear();
 	do{
 		haveCombo = false;
 		iteRound++;
+		init();
 		//1. init board status.
-		initStatus();
 		for(int i = 0; i < HEIGHT; i++){
 			for(int j = 0; j < WIDTH; j++){
 				if(board_status[i][j] == NOT_INITIALIZED){
-					linkCellTo(i, j,  i * WIDTH + j + 1);
+					linkCellTo(i, j,  i * WIDTH + j + 1, lBoard);
 				}
 			}
 		}
 		//2. init isCombo
-		initIsCombo();
-		evaluateIsCombo();
+		evaluateIsCombo(lBoard);
 		//3. init combos and comboNum
 		map<int, vector<int>> tempMap;
 		for(int i = 0; i < HEIGHT; i++){
@@ -50,7 +50,7 @@ int BoardEvaluator::evaluate(){
 			int row = (root - 1 - iteRound * WIDTH * HEIGHT) / WIDTH;
 			int col = (root - 1 - iteRound * WIDTH * HEIGHT) % WIDTH;
 			perl_type type;
-			mpBoard.getCell(row, col, type);
+			lBoard.getCell(row, col, type);
 			this->comboNum[(int)type]++;
 			combos.insert(*ite);
 			ite++;
@@ -64,14 +64,14 @@ int BoardEvaluator::evaluate(){
 				if(!board_isCombo[i][j]){
 					if(i != newHeight){
 						perl_type cType;
-						mpBoard.getCell(i, j, cType);
-						mpBoard.setCell(newHeight, j, cType);
-						mpBoard.setCell(i, j, NOT_INITIALIZED);
+						lBoard.getCell(i, j, cType);
+						lBoard.setCell(newHeight, j, cType);
+						lBoard.setCell(i, j, NOT_INITIALIZED);
 					}
 
 					newHeight--;
 				}else{
-					mpBoard.setCell(i, j, NOT_INITIALIZED);
+					lBoard.setCell(i, j, NOT_INITIALIZED);
 				}
 			}
 		}
@@ -82,18 +82,18 @@ int BoardEvaluator::evaluate(){
 	return S_OK;
 }
 
-int BoardEvaluator::evaluateIsCombo(){
+int BoardEvaluator::evaluateIsCombo(GameBoard& board){
 	//2.1, horizontally search
 	for(int i = 0; i < HEIGHT; i++){
 		for(int j = 0; j < WIDTH - 2; j++){
 			perl_type current = NOT_INITIALIZED;
-			mpBoard.getCell(i, j, current);
+			board.getCell(i, j, current);
 			if(current == NOT_INITIALIZED)
 				continue;
 			perl_type other = NOT_INITIALIZED;
-			mpBoard.getCell(i, j + 1, other);
+			board.getCell(i, j + 1, other);
 			perl_type third = NOT_INITIALIZED;
-			mpBoard.getCell(i, j + 2, third);
+			board.getCell(i, j + 2, third);
 			if(current == other && current == third){
 				board_isCombo[i][j] = board_isCombo[i][j + 1] = board_isCombo[i][j + 2] = true;
 			}
@@ -103,13 +103,13 @@ int BoardEvaluator::evaluateIsCombo(){
 	for(int i = 0; i < HEIGHT - 2; i++){
 		for(int j = 0; j < WIDTH; j++){
 			perl_type current = NOT_INITIALIZED;
-			mpBoard.getCell(i, j, current);
+			board.getCell(i, j, current);
 			if(current == NOT_INITIALIZED)
 				continue;
 			perl_type other = NOT_INITIALIZED;
-			mpBoard.getCell(i + 1, j, other);
+			board.getCell(i + 1, j, other);
 			perl_type third = NOT_INITIALIZED;
-			mpBoard.getCell(i + 2, j, third);
+			board.getCell(i + 2, j, third);
 			if(current == other && current == third){
 				board_isCombo[i][j] = board_isCombo[i + 1][j] = board_isCombo[i + 2][j] = true;
 			}
@@ -118,31 +118,31 @@ int BoardEvaluator::evaluateIsCombo(){
 	return S_OK;
 }
 
-int BoardEvaluator::linkCellTo(int row, int col, int root){
+int BoardEvaluator::linkCellTo(int row, int col, int root, GameBoard& board){
 	perl_type current;
-	mpBoard.getCell(row, col, current);//currently don't check return value
+	board.getCell(row, col, current);//currently don't check return value
 	if(current == NOT_INITIALIZED)
 		return S_OK;
 	board_status[row][col] = root;
 	perl_type other = NOT_INITIALIZED;
 	if(row > 0){
-		mpBoard.getCell(row - 1,col, other);
+		board.getCell(row - 1,col, other);
 		if(current == other && board_status[row - 1][col] != root)
 			linkCellTo(row - 1, col, root);
 	}
 	if(row + 1 < HEIGHT){
-		mpBoard.getCell(row + 1,col, other);
+		board.getCell(row + 1,col, other);
 		if(current == other && board_status[row + 1][col] != root)
 			linkCellTo(row + 1, col, root);
 	}
 	if(col > 0){
-		mpBoard.getCell(row,col - 1, other);
+		board.getCell(row,col - 1, other);
 		if(current == other && board_status[row][col - 1] != root)
 			linkCellTo(row, col - 1, root);
 	}
 
 	if(col + 1 < WIDTH){
-		mpBoard.getCell(row,col + 1, other);
+		board.getCell(row,col + 1, other);
 		if(current == other && board_status[row][col + 1] != root)
 			linkCellTo(row, col + 1, root);
 	}
@@ -179,4 +179,8 @@ double BoardEvaluator::getScore(){
 		ite++;
 	}
 	return score;
+}
+
+void BoardEvaluator::printBoard(){
+	this->mpBoard.printBoard();
 }
