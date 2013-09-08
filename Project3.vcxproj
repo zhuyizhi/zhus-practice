@@ -73,8 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoardEvaluator.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="GameBoard.h" />
-    <ClInclude Include="Manipulator.h" />
     <ClInclude Include="RandomPlayer.h" />
     <ClInclude Include="TransferFile.h" />
   </ItemGroup>

@@ -6,14 +6,20 @@
 
 class RandomPlayer{
 public:
-	RandomPlayer(BoardEvaluator* ieva, GameBoard* ib);
+	RandomPlayer(GameBoard* ib);
 	int playAndPrint();
 private:
-	BoardEvaluator* eva;
 	GameBoard* board;
 	int move(const int height, const int width, const direction dir);
 	inline bool validWidth(const int width){ return (width >= 0 && width < WIDTH); }
 	inline bool validHeight(const int height){ return (height >= 0 && height < HEIGHT); }
+
+	double simpleScore(EvaluateResult *evalute_result){
+		double  score = 0;
+		for(int i = 0; i < TYPE_NUM; i++)
+			score += evalute_result->comboNum[i];
+		return score;
+	}
 };
 
 

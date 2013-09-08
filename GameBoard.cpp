@@ -11,6 +11,12 @@ GameBoard::GameBoard(const GameBoard& anotherBoard){
 			board[i][j] = anotherBoard.board[i][j];
 }
 
+GameBoard::GameBoard(){
+	for(int i = 0; i < HEIGHT; i++)
+		for(int j = 0; j < WIDTH; j++)
+			board[i][j] = NOT_INITIALIZED;
+}
+
 int GameBoard::read_file(std::string file_name){
 	std::ifstream infile;
 	infile.open(file_name.c_str());

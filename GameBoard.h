@@ -6,9 +6,13 @@
 
 #include "Enums.h"
 
+/*
+The board is currently implemented as a 2D array.
+Each Element is a enum-->"perl_type".
+*/
 class GameBoard{
 public:
-	
+	GameBoard::GameBoard();
 	explicit GameBoard(const GameBoard&);
 	GameBoard& operator=(const GameBoard&);
 	inline int setCell(int height, int width, perl_type type){
@@ -30,7 +34,7 @@ public:
 				board[i][j] = NOT_INITIALIZED;
 	}
 
-	int read_file(std::string file_name);
+	int read_file(std::string file_name);//init board from file.
 
 	inline int swap(int w1, int h1, int w2, int h2){
 		perl_type t1 = board[h1][w1];

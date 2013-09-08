@@ -2,9 +2,9 @@
 
 #include "RandomPlayer.h"
 
-RandomPlayer::RandomPlayer(BoardEvaluator* ieva, GameBoard* ib){
+
+RandomPlayer::RandomPlayer(GameBoard* ib){
 	this->board = ib;
-	this->eva = ieva;
 }
 
 int RandomPlayer::move(const int height, const int width, const direction dir){
@@ -32,17 +32,38 @@ int RandomPlayer::move(const int height, const int width, const direction dir){
 }
 
 int RandomPlayer::playAndPrint(){
-	int w = 2;
-	int h = 2;
-	direction dir = RIGHT;
-	cout<<"(" << w <<","<< h <<") is moving " << dir << endl;
-	move(0, 1, DOWN);
-	board->printBoard();
-	cout<<"for compare"<<endl;
-	this->eva->printBoard();
-	this->eva->evaluate();
-	cout<<"now the score is:"<< this->eva->getScore() <<endl;
+	srand(static_cast<unsigned>(time(0)));
+	int width = rand() % WIDTH;
+	int height = rand() % HEIGHT;
 	
+	int max_step = 25;
+	int step = 0;
+	double max_score = -1;
+	int max_at_step = -1;
+	std::vector<direction> steps;
 
+	while(step < max_step){
+		direction dir = static_cast<direction>(rand() % 4);
+		steps.push_back(dir);
+		move(width, height, dir);
+		EvaluateResult *evaluate_result = BoardEvaluator::evaluate(board);
+		double score = simpleScore(evaluate_result);
+		if(score > max_score){
+			max_score = score;
+			max_at_step = step; 
+		}
+		step++;
+	}
+
+	std::cout<<"best combo number = "<<max_score<<std::endl
+		<<"Starts at orb ("<<width<<","<<height<<")"<<std::endl
+		<<"Path is :"<<std::endl;
+
+	std::vector<direction>::iterator ite = steps.begin();
+	while(ite != steps.end()){
+		std::cout<<*ite<<std::endl;
+		ite++;
+	}
+	
 	return S_OK;
 }

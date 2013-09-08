@@ -44,10 +44,10 @@
     <ClInclude Include="BoardEvaluator.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="Manipulator.h">
+    <ClInclude Include="RandomPlayer.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="RandomPlayer.h">
+    <ClInclude Include="Enums.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

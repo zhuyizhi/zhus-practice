@@ -15,19 +15,10 @@ int main(){
 	gb.read_file(file_name);
 	gb.printBoard();
 	
-	BoardEvaluator be(gb);
-	be.initStatus();
-	be.initIsCombo();
-	cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
-	be.evaluate();
-	be.printStatus();
-	be.evaluate();
-	cout<<"score is "<<be.getScore()<<endl;
-	
-	cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
-	RandomPlayer pr(&be, &gb);
-	pr.playAndPrint();
-	
+	EvaluateResult *evalute_result = BoardEvaluator::evaluate(&gb);
+	evalute_result->printStatus();
 
+	RandomPlayer player(&gb);
+	player.playAndPrint();
 	system("pause");
 }
