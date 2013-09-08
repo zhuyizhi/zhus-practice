@@ -7,7 +7,7 @@ RandomPlayer::RandomPlayer(GameBoard* ib){
 	this->board = ib;
 }
 
-int RandomPlayer::move(const int height, const int width, const direction dir){
+int RandomPlayer::move(int& height, int& width, const direction dir){
 	int hOffset = height;
 	int wOffset = width;
 
@@ -27,8 +27,10 @@ int RandomPlayer::move(const int height, const int width, const direction dir){
 
 	if(!(validHeight(hOffset) && validWidth(wOffset)))
 		return E_FAIL;
-
-	return board->swap(wOffset, hOffset, width, height);
+	int ret = board->swap(wOffset, hOffset, width, height);
+	height = hOffset;
+	width = wOffset;
+	return ret;
 }
 
 int RandomPlayer::playAndPrint(){
@@ -36,7 +38,7 @@ int RandomPlayer::playAndPrint(){
 	int width = rand() % WIDTH;
 	int height = rand() % HEIGHT;
 	
-	int max_step = 25;
+	int max_step = 50;
 	int step = 0;
 	double max_score = -1;
 	int max_at_step = -1;
@@ -44,15 +46,18 @@ int RandomPlayer::playAndPrint(){
 
 	while(step < max_step){
 		direction dir = static_cast<direction>(rand() % 4);
-		steps.push_back(dir);
-		move(width, height, dir);
-		EvaluateResult *evaluate_result = BoardEvaluator::evaluate(board);
-		double score = simpleScore(evaluate_result);
-		if(score > max_score){
-			max_score = score;
-			max_at_step = step; 
+		int status = move(height, width, dir);
+		if(status == S_OK){// it's possible that the randomly choosed direction is invalid.
+			steps.push_back(dir);
+			EvaluateResult *evaluate_result = BoardEvaluator::evaluate(board);
+			double score = simpleScore(evaluate_result);
+			if(score > max_score){
+				max_score = score;
+				max_at_step = step; 
+			}
+			step++;
 		}
-		step++;
+
 	}
 
 	std::cout<<"best combo number = "<<max_score<<std::endl
@@ -65,5 +70,8 @@ int RandomPlayer::playAndPrint(){
 		ite++;
 	}
 	
+	std::cout<<"+++++++++++++++++++++++++++++++"<<std::endl;
+
+	this->board->printBoard();
 	return S_OK;
 }

@@ -10,7 +10,7 @@ public:
 	int playAndPrint();
 private:
 	GameBoard* board;
-	int move(const int height, const int width, const direction dir);
+	int move(int& height, int& width, const direction dir);
 	inline bool validWidth(const int width){ return (width >= 0 && width < WIDTH); }
 	inline bool validHeight(const int height){ return (height >= 0 && height < HEIGHT); }
 
