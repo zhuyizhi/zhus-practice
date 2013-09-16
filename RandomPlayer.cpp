@@ -1,37 +1,9 @@
 #include "iostream"
 
 #include "RandomPlayer.h"
+#include "Scorer.h"
 
-
-RandomPlayer::RandomPlayer(GameBoard* ib){
-	this->board = ib;
-}
-
-int RandomPlayer::move(int& height, int& width, const direction dir){
-	int hOffset = height;
-	int wOffset = width;
-
-	switch(dir){
-	case LEFT:
-		--wOffset;
-		break;
-	case RIGHT:
-		++wOffset;
-		break;
-	case UP:
-		--hOffset;
-		break;
-	case DOWN:
-		++hOffset;
-	}
-
-	if(!(validHeight(hOffset) && validWidth(wOffset)))
-		return E_FAIL;
-	int ret = board->swap(wOffset, hOffset, width, height);
-	height = hOffset;
-	width = wOffset;
-	return ret;
-}
+RandomPlayer::RandomPlayer(GameBoard* ib): Player(ib){}
 
 int RandomPlayer::playAndPrint(){
 	srand(static_cast<unsigned>(time(0)));
@@ -50,7 +22,7 @@ int RandomPlayer::playAndPrint(){
 		if(status == S_OK){// it's possible that the randomly choosed direction is invalid.
 			steps.push_back(dir);
 			EvaluateResult *evaluate_result = BoardEvaluator::evaluate(board);
-			double score = simpleScore(evaluate_result);
+			double score = Scorer::simpleScore(evaluate_result);
 			if(score > max_score){
 				max_score = score;
 				max_at_step = step; 

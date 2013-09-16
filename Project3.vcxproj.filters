@@ -30,6 +30,12 @@
     <ClCompile Include="RandomPlayer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scorer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -48,6 +54,12 @@
       <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Scorer.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
